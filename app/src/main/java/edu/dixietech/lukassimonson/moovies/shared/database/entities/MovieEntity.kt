@@ -3,6 +3,7 @@ package edu.dixietech.lukassimonson.moovies.shared.database.entities
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import edu.dixietech.lukassimonson.moovies.shared.domain.Movie
 import edu.dixietech.lukassimonson.moovies.shared.network.dtos.GenreDto
 import edu.dixietech.lukassimonson.moovies.shared.network.dtos.MovieDto
 import kotlin.time.Clock
@@ -57,4 +58,18 @@ fun MovieDto.toMovieEntity() = MovieEntity(
     rating = rating,
     expiration = Clock.System.now().plus(86_400.seconds).epochSeconds, // 1 Day
     genres = genres?.map(GenreDto::toGenreEntity)
+)
+
+@OptIn(ExperimentalTime::class)
+fun Movie.toMovieEntity() = MovieEntity(
+    id = id,
+    title = title,
+    overview = overview,
+    releaseDate = releaseDate,
+    backdropPath = backdropPath,
+    posterPath = posterPath,
+    runtime = runtime,
+    rating = rating,
+    expiration = Clock.System.now().plus(86_400.seconds).epochSeconds, // 1 Day)
+    review = review?.toReviewEntity()
 )

@@ -14,7 +14,8 @@ data class Movie(
     val posterPath: String?,
     val genres: List<Genre>?,
     val runtime: Int?,
-    val rating: Double?
+    val rating: Double?,
+    val review: Review?
 )
 
 fun MovieDto.toMovie() = Movie(
@@ -26,7 +27,8 @@ fun MovieDto.toMovie() = Movie(
     posterPath = posterPath,
     genres = genres?.map(GenreDto::toGenre),
     runtime = runtime,
-    rating = rating
+    rating = rating,
+    review = null
 )
 
 fun MovieEntity.toMovie() = Movie(
@@ -38,5 +40,6 @@ fun MovieEntity.toMovie() = Movie(
     posterPath = posterPath,
     genres = genres?.map(GenreEntity::toGenre),
     runtime = runtime,
-    rating = rating
+    rating = rating,
+    review = review?.toReview()
 )
