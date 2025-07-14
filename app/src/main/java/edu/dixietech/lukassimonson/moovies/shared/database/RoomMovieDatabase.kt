@@ -8,14 +8,18 @@ import edu.dixietech.lukassimonson.moovies.features.detail.model.database.RoomDe
 import edu.dixietech.lukassimonson.moovies.shared.database.entities.GenreEntity
 import edu.dixietech.lukassimonson.moovies.shared.database.entities.MovieEntity
 import edu.dixietech.lukassimonson.moovies.shared.database.entities.MovieGenreJoin
+import edu.dixietech.lukassimonson.moovies.shared.database.entities.MovieReviewJoin
+import edu.dixietech.lukassimonson.moovies.shared.database.entities.ReviewEntity
 
 @Database(
     entities = [
         MovieEntity::class,
         GenreEntity::class,
-        MovieGenreJoin::class
+        MovieGenreJoin::class,
+        ReviewEntity::class,
+        MovieReviewJoin::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = true,
 )
 abstract class RoomMovieDatabase : RoomDatabase(), MovieDatabase {
