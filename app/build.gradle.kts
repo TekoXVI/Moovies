@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 
     alias(libs.plugins.safe.args.kotlin)
     alias(libs.plugins.kapt)
@@ -60,6 +61,9 @@ dependencies {
     implementation(libs.kotlinx.serialization)
     implementation(libs.androidx.livedata.ktx)
     implementation(libs.androidx.viewmodel.ktx)
+
+    // Compose
+    implementation(libs.androidx.activity.compose)
 
     // Ui
     implementation(libs.androidx.navigation.fragment)
