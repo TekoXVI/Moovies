@@ -26,6 +26,7 @@ import edu.dixietech.lukassimonson.moovies.shared.domain.Genre
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.unit.sp
+import edu.dixietech.lukassimonson.moovies.shared.ui.MooviesTheme
 
 @AndroidEntryPoint
 class DetailFragment: Fragment() {
@@ -49,8 +50,10 @@ class DetailFragment: Fragment() {
         binding.reviewSection.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                Surface {
-                    MovieReview(viewModel)
+                MooviesTheme {
+                    Surface {
+                        MovieReview(viewModel)
+                    }
                 }
             }
         }
@@ -98,11 +101,15 @@ class DetailFragment: Fragment() {
         val movie by viewModel.movie.observeAsState()
 
         movie?.review.let { review ->
-            if (review != null) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    modifier = modifier
-                ) {
+
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = modifier
+            ) {
+                Text(
+                    text = "Rating: ${movie?.rating}"
+                )
+                if (review != null) {
                     Text(
                         text = review.title,
                         fontSize = 24.sp,
