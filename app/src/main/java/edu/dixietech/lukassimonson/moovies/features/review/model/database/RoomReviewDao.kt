@@ -1,5 +1,6 @@
 package edu.dixietech.lukassimonson.moovies.features.review.model.database
 
+import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
@@ -7,6 +8,7 @@ import edu.dixietech.lukassimonson.moovies.shared.database.entities.MovieEntity
 import edu.dixietech.lukassimonson.moovies.shared.database.entities.MovieReviewJoin
 import edu.dixietech.lukassimonson.moovies.shared.database.entities.ReviewEntity
 
+@Dao
 interface RoomReviewDao: ReviewDao {
     @Transaction
     @Query("SELECT * FROM review WHERE id = :id")
