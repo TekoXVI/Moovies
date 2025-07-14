@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 data class ReviewEntity(
     @PrimaryKey
     val id: Int,
-    val rating: Int,
     val title: String,
     val body: String
 )
