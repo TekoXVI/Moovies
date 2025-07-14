@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import edu.dixietech.lukassimonson.moovies.features.detail.model.database.RoomDetailDao
+import edu.dixietech.lukassimonson.moovies.features.review.model.database.RoomReviewDao
 import edu.dixietech.lukassimonson.moovies.shared.database.entities.GenreEntity
 import edu.dixietech.lukassimonson.moovies.shared.database.entities.MovieEntity
 import edu.dixietech.lukassimonson.moovies.shared.database.entities.MovieGenreJoin
@@ -24,6 +25,7 @@ import edu.dixietech.lukassimonson.moovies.shared.database.entities.ReviewEntity
 )
 abstract class RoomMovieDatabase : RoomDatabase(), MovieDatabase {
     abstract override fun detailDao(): RoomDetailDao
+    abstract override fun reviewDao(): RoomReviewDao
 }
 
 object Migrations {

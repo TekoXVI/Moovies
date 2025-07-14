@@ -15,7 +15,7 @@ class ReviewRepositoryImpl(
 ): ReviewRepository {
     override suspend fun getMovieReview(id: Int) = withContext(context) {
         val entity = dao.getMovie(id)
-            return@withContext entity?.toMovie() ?: throw MissingItemException()
+        return@withContext entity?.toMovie() ?: throw MissingItemException()
     }
 
     override suspend fun saveMovieReview(movie: Movie, review: Review) {

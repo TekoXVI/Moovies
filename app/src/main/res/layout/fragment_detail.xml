@@ -73,6 +73,16 @@
                     android:text="@{movie.overview}"
                     tools:text="Shrek is the greatest movie of all time, and you are wrong if you disagree." />
 
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"/>
+
+                <androidx.compose.ui.platform.ComposeView
+                    android:id="@+id/review_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

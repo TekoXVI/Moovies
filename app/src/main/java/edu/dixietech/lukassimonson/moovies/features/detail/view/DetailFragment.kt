@@ -1,13 +1,18 @@
 package edu.dixietech.lukassimonson.moovies.features.detail.view
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.core.view.marginStart
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
@@ -18,6 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import edu.dixietech.lukassimonson.moovies.databinding.FragmentDetailBinding
 import edu.dixietech.lukassimonson.moovies.features.detail.viewmodel.DetailVm
 import edu.dixietech.lukassimonson.moovies.shared.domain.Genre
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.unit.sp
 
 @AndroidEntryPoint
 class DetailFragment: Fragment() {
@@ -37,6 +45,15 @@ class DetailFragment: Fragment() {
 
         val args = DetailFragmentArgs.fromBundle(requireArguments())
         viewModel.getMovie(args.movieId)
+
+        binding.reviewSection.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                Surface {
+                    MovieReview(viewModel)
+                }
+            }
+        }
 
         return binding.root
     }
@@ -70,6 +87,33 @@ class DetailFragment: Fragment() {
                     setPadding(15)
                 }
             )
+        }
+    }
+
+    @Composable
+    fun MovieReview(
+        viewModel: DetailVm,
+        modifier: Modifier = Modifier
+    ) {
+        val movie by viewModel.movie.observeAsState()
+
+        movie?.review.let { review ->
+            if (review != null) {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    modifier = modifier
+                ) {
+                    Text(
+                        text = review.title,
+                        fontSize = 24.sp,
+
+                        )
+                    Text(
+                        text = review.body,
+                        fontSize = 16.sp
+                    )
+                }
+            }
         }
     }
 }

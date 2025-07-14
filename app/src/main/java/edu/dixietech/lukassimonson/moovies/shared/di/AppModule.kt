@@ -35,5 +35,6 @@ class AppModule {
         "movie_database"
     )
         .addMigrations(Migrations.OneToTwo())
+        .fallbackToDestructiveMigration(true)
         .build()
 }

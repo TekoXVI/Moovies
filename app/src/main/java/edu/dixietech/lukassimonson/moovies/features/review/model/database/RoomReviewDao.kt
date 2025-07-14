@@ -11,7 +11,7 @@ import edu.dixietech.lukassimonson.moovies.shared.database.entities.ReviewEntity
 @Dao
 interface RoomReviewDao: ReviewDao {
     @Transaction
-    @Query("SELECT * FROM review WHERE id = :id")
+    @Query("SELECT * FROM movie WHERE id = :id")
     suspend fun getMovieAndReview(id: Int): MovieReviewMap?
 
     @Upsert
