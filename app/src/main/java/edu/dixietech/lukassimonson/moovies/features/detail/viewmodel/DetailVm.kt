@@ -13,8 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailVm @Inject constructor(
-    private val detailRepo: DetailRepository,
-    private val reviewRepo: ReviewRepository
+    private val repo: DetailRepository
 ): ViewModel() {
     private val _movie = MutableLiveData<Movie>()
     val movie: LiveData<Movie>
@@ -22,8 +21,7 @@ class DetailVm @Inject constructor(
 
     fun getMovie(id: Int) {
         viewModelScope.launch {
-            _movie.postValue(detailRepo.getMovieDetails(id))
-            _movie.postValue(reviewRepo.getMovieReview(id))
+            _movie.postValue(repo.getMovieDetails(id))
         }
     }
 }
