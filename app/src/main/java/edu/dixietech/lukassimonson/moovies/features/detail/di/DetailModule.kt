@@ -9,6 +9,7 @@ import edu.dixietech.lukassimonson.moovies.features.detail.model.network.DetailN
 import edu.dixietech.lukassimonson.moovies.features.detail.model.network.KtorDetailNetwork
 import edu.dixietech.lukassimonson.moovies.features.detail.model.repository.DetailRepository
 import edu.dixietech.lukassimonson.moovies.features.detail.model.repository.DetailRepositoryImpl
+import edu.dixietech.lukassimonson.moovies.features.review.model.database.ReviewDao
 import edu.dixietech.lukassimonson.moovies.shared.database.MovieDatabase
 import edu.dixietech.lukassimonson.moovies.shared.network.KtorRoot
 import kotlinx.coroutines.Dispatchers
@@ -32,10 +33,12 @@ class DetailModule {
     @Provides
     fun providesDetailRepository(
         network: DetailNetwork,
-        dao: DetailDao
+        detailDao: DetailDao,
+        reviewDao: ReviewDao
     ): DetailRepository = DetailRepositoryImpl(
         network = network,
-        dao = dao,
+        detailDao = detailDao,
+        reviewDao = reviewDao,
         context = Dispatchers.Default
     )
 }

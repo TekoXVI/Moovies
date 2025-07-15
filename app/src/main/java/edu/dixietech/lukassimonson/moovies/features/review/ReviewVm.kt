@@ -31,11 +31,4 @@ class ReviewVm @Inject constructor(
             getReview(movie.id)
         }
     }
-
-    fun saveRating(movie: Movie, rating: Double) {
-        viewModelScope.launch {
-            repo.saveMovieRating(movie, rating)
-            getReview(movie.id)
-        }
-    }
 }

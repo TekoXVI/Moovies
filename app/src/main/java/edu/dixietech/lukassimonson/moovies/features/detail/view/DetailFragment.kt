@@ -8,6 +8,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +34,11 @@ import edu.dixietech.lukassimonson.moovies.features.detail.viewmodel.DetailVm
 import edu.dixietech.lukassimonson.moovies.shared.domain.Genre
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import androidx.navigation.fragment.findNavController
 import edu.dixietech.lukassimonson.moovies.shared.ui.MooviesTheme
 
 @AndroidEntryPoint
@@ -45,7 +58,6 @@ class DetailFragment: Fragment() {
         setupObservers()
 
         val args = DetailFragmentArgs.fromBundle(requireArguments())
-        viewModel.getMovie(args.movieId)
 
         binding.reviewSection.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -57,6 +69,7 @@ class DetailFragment: Fragment() {
                 }
             }
         }
+        viewModel.getMovie(args.movieId)
 
         return binding.root
     }
@@ -103,13 +116,28 @@ class DetailFragment: Fragment() {
         movie?.review.let { review ->
 
             Column(
-                verticalArrangement = Arrangement.Center,
-                modifier = modifier
+                verticalArrangement = Arrangement.Center
             ) {
                 Text(
                     text = "Overall Rating: ${movie?.rating}"
                 )
                 if (review != null) {
+                    Text(
+                        text = "Your Rating:",
+                        fontSize = 24.sp,
+                        textAlign = TextAlign.Center
+                    )
+                    Row(
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        (0..review.rating).forEach { _ ->
+                            Icon(
+                                imageVector = Icons.Filled.Star,
+                                contentDescription = "Star Icon",
+                                tint = androidx.compose.ui.graphics.Color.Yellow
+                            )
+                        }
+                    }
                     Text(
                         text = review.title,
                         fontSize = 24.sp
@@ -118,6 +146,34 @@ class DetailFragment: Fragment() {
                         text = review.body,
                         fontSize = 16.sp
                     )
+
+
+                }
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Button(
+                    onClick = {
+                        findNavController().navigate(
+                            DetailFragmentDirections.actionDetailFragmentToReviewFragment(
+                                movie?.id ?: 0
+                            )
+                        )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    if (review != null) {
+                        Text(
+                            text = "Edit Review",
+                            textAlign = TextAlign.Center
+                        )
+                    } else {
+                        Text(
+                            text = "Add Review",
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 }
             }
         }

@@ -20,5 +20,5 @@ data class MovieReviewMap(
             entityColumn = "reviewId"
         )
     )
-    val reviewEntity: ReviewEntity
+    val reviewEntity: ReviewEntity?
 )

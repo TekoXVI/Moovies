@@ -18,10 +18,10 @@ interface RoomReviewDao: ReviewDao {
     suspend fun save(movie: MovieEntity)
 
     @Upsert
-    suspend fun saveReview(review: ReviewEntity)
+    override suspend fun saveReview(review: ReviewEntity)
 
     @Upsert
-    suspend fun saveJoin(join: MovieReviewJoin)
+    override suspend fun saveJoin(join: MovieReviewJoin)
 
     override suspend fun getMovie(id: Int): MovieEntity? {
         val map = getMovieAndReview(id)

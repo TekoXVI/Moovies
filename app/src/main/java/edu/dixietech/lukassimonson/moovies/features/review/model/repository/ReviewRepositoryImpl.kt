@@ -2,7 +2,9 @@ package edu.dixietech.lukassimonson.moovies.features.review.model.repository
 
 import edu.dixietech.lukassimonson.moovies.features.review.model.database.ReviewDao
 import edu.dixietech.lukassimonson.moovies.shared.database.MissingItemException
+import edu.dixietech.lukassimonson.moovies.shared.database.entities.MovieReviewJoin
 import edu.dixietech.lukassimonson.moovies.shared.database.entities.toMovieEntity
+import edu.dixietech.lukassimonson.moovies.shared.database.entities.toReviewEntity
 import edu.dixietech.lukassimonson.moovies.shared.domain.Movie
 import edu.dixietech.lukassimonson.moovies.shared.domain.Review
 import edu.dixietech.lukassimonson.moovies.shared.domain.toMovie
@@ -19,17 +21,12 @@ class ReviewRepositoryImpl(
     }
 
     override suspend fun saveMovieReview(movie: Movie, review: Review) {
-        val newMovie = movie.copy(review = review)
-        dao.saveMovie(newMovie.toMovieEntity())
-    }
+        dao.saveMovie(movie.toMovieEntity())
 
-    override suspend fun saveMovieRating(
-        movie: Movie,
-        rating: Int
-    ) {
-        val newMovie = movie.copy(
-            review = movie.review?.copy(rating = rating)
-        )
-        dao.saveMovie(newMovie.toMovieEntity())
+        dao.saveReview(review.toReviewEntity())
+        dao.saveJoin(MovieReviewJoin(movie.id, review.id))
+
+//        val newMovie = movie.copy(review = review)
+//        dao.saveMovie(newMovie.toMovieEntity())
     }
 }

@@ -20,7 +20,7 @@ import edu.dixietech.lukassimonson.moovies.shared.database.entities.ReviewEntity
         ReviewEntity::class,
         MovieReviewJoin::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = true,
 )
 abstract class RoomMovieDatabase : RoomDatabase(), MovieDatabase {

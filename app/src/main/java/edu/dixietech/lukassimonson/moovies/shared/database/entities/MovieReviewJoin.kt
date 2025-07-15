@@ -24,5 +24,4 @@ import androidx.room.ForeignKey.Companion.CASCADE
 data class MovieReviewJoin(
     val movieId: Int,
     val reviewId: Int
-
 )
