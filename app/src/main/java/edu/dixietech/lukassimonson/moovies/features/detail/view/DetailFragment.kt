@@ -107,14 +107,13 @@ class DetailFragment: Fragment() {
                 modifier = modifier
             ) {
                 Text(
-                    text = "Rating: ${movie?.rating}"
+                    text = "Overall Rating: ${movie?.rating}"
                 )
                 if (review != null) {
                     Text(
                         text = review.title,
-                        fontSize = 24.sp,
-
-                        )
+                        fontSize = 24.sp
+                    )
                     Text(
                         text = review.body,
                         fontSize = 16.sp

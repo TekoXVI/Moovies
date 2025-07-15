@@ -9,11 +9,13 @@ data class ReviewEntity(
     @PrimaryKey
     val id: Int,
     val title: String,
-    val body: String
+    val body: String,
+    val rating: Int
 )
 
 fun Review.toReviewEntity() = ReviewEntity(
     id = id,
     title = title,
-    body = body
+    body = body,
+    rating = rating
 )

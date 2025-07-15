@@ -25,9 +25,11 @@ class ReviewRepositoryImpl(
 
     override suspend fun saveMovieRating(
         movie: Movie,
-        rating: Double
+        rating: Int
     ) {
-        val newMovie = movie.copy(rating = rating)
+        val newMovie = movie.copy(
+            review = movie.review?.copy(rating = rating)
+        )
         dao.saveMovie(newMovie.toMovieEntity())
     }
 }
