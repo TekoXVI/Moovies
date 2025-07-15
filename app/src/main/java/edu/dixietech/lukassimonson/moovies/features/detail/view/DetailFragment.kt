@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -39,6 +40,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.fragment.findNavController
+import edu.dixietech.lukassimonson.moovies.R
 import edu.dixietech.lukassimonson.moovies.shared.ui.MooviesTheme
 
 @AndroidEntryPoint
@@ -116,31 +118,38 @@ class DetailFragment: Fragment() {
         movie?.review.let { review ->
 
             Column(
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
+                modifier = modifier
             ) {
                 Text(
-                    text = "Overall Rating: ${movie?.rating}"
+                    text = "Overall Rating: ${movie?.rating}/10"
                 )
                 if (review != null) {
                     Text(
                         text = "Your Rating:",
-                        fontSize = 24.sp,
+                        fontSize = 16.sp,
                         textAlign = TextAlign.Center
                     )
                     Row(
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        (0..review.rating).forEach { _ ->
+                        (0..review.rating-1).forEach { _ ->
                             Icon(
                                 imageVector = Icons.Filled.Star,
                                 contentDescription = "Star Icon",
                                 tint = androidx.compose.ui.graphics.Color.Yellow
                             )
                         }
+                        (0..(4-review.rating)).forEach { _ ->
+                            Icon(
+                                imageVector = Icons.Outlined.Star,
+                                contentDescription = "Outlined Star Icon"
+                            )
+                        }
                     }
                     Text(
                         text = review.title,
-                        fontSize = 24.sp
+                        fontSize = 20.sp
                     )
                     Text(
                         text = review.body,
