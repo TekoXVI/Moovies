@@ -41,5 +41,8 @@
         <argument
             android:name="movie_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_reviewFragment_self"
+            app:popUpTo="@id/detailFragment" />
     </fragment>
 </navigation>

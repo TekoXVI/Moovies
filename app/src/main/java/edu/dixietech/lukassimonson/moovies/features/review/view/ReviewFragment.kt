@@ -6,19 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -31,6 +38,9 @@ import edu.dixietech.lukassimonson.moovies.databinding.FragmentReviewBinding
 import edu.dixietech.lukassimonson.moovies.features.review.ReviewVm
 import edu.dixietech.lukassimonson.moovies.shared.domain.Review
 import edu.dixietech.lukassimonson.moovies.shared.ui.MooviesTheme
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 
 @AndroidEntryPoint
 class ReviewFragment: Fragment() {
@@ -54,7 +64,10 @@ class ReviewFragment: Fragment() {
             setContent {
                 MooviesTheme {
                     Surface {
-                        ReviewScreen(viewModel)
+                        ReviewScreen(
+                            viewModel,
+                            findNavController()
+                        )
                     }
                 }
             }
@@ -65,6 +78,7 @@ class ReviewFragment: Fragment() {
 @Composable
 fun ReviewScreen(
     viewModel: ReviewVm,
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -74,7 +88,7 @@ fun ReviewScreen(
             .fillMaxWidth()
             .padding(10.dp)
     ) {
-        var ratingText by remember { mutableStateOf("") }
+        var rating by remember { mutableIntStateOf(0) }
         var titleText by remember { mutableStateOf("") }
         var bodyText by remember { mutableStateOf("") }
 
@@ -83,13 +97,53 @@ fun ReviewScreen(
             fontSize = 40.sp,
             fontWeight = FontWeight.Bold
         )
-        TextField(
-            value = ratingText,
-            onValueChange = { ratingText = it },
-            label = { Text("Rating") },
-            modifier = Modifier
-                .fillMaxWidth()
-        )
+        Row {
+            IconButton(
+                onClick = { rating = 1 }
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Star,
+                    contentDescription = "Filled Star",
+                    tint = if (rating >= 1) Color.Yellow else Color.Gray
+                )
+            }
+            IconButton(
+                onClick = { rating = 2 }
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Star,
+                    contentDescription = "Filled Star",
+                    tint = if (rating >= 2) Color.Yellow else Color.Gray
+                )
+            }
+            IconButton(
+                onClick = { rating = 3 }
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Star,
+                    contentDescription = "Filled Star",
+                    tint = if (rating >= 3) Color.Yellow else Color.Gray
+                )
+            }
+            IconButton(
+                onClick = { rating = 4 }
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Star,
+                    contentDescription = "Filled Star",
+                    tint = if (rating >= 4) Color.Yellow else Color.Gray
+                )
+            }
+            IconButton(
+                onClick = { rating = 5 }
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Star,
+                    contentDescription = "Filled Star",
+                    tint = if (rating >= 5) Color.Yellow else Color.Gray
+                )
+            }
+        }
         TextField(
             value = titleText,
             onValueChange = { titleText = it },
@@ -110,13 +164,14 @@ fun ReviewScreen(
                     movie = viewModel.movie.value!!,
                     review = Review(
                         id = viewModel.movie.value?.id ?: 0,
-                        rating = ratingText.toInt(),
+                        rating = rating,
                         title = titleText,
                         body = bodyText
                     )
                 )
+                navController.popBackStack()
             },
-            enabled = ratingText.isNotBlank()
+            enabled = rating > 0
                     && titleText.isNotBlank()
                     && bodyText.isNotBlank()
         ) {

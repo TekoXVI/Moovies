@@ -35,12 +35,9 @@ import edu.dixietech.lukassimonson.moovies.features.detail.viewmodel.DetailVm
 import edu.dixietech.lukassimonson.moovies.shared.domain.Genre
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.fragment.findNavController
-import edu.dixietech.lukassimonson.moovies.R
 import edu.dixietech.lukassimonson.moovies.shared.ui.MooviesTheme
 
 @AndroidEntryPoint
@@ -174,7 +171,7 @@ class DetailFragment: Fragment() {
                 ) {
                     if (review != null) {
                         Text(
-                            text = "Edit Review",
+                            text = "New Review",
                             textAlign = TextAlign.Center
                         )
                     } else {
